@@ -109,6 +109,16 @@ Before we were annotating and classifying our bounding boxes with surfers, we no
 
             vi label_map.pbtxt
             
+Press *i* to be able to insert text into the file. Copy and paste the following text below into the *label_map.pbtxt* file and save 
+   
+            item {
+                 id: 1
+                 name: 'surfer'
+            }
+   
+Press *esc* to exit text editing powers and then *:wq* to write and exit the file
+ 
+### 5. Create tfrecords from the *.xml* file 
 
 
 
