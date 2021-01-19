@@ -88,13 +88,29 @@ For simplicity and because this project at scale would implement a pipeline appr
 
             cd Surfer_Count/workspace/training_demo/images/
             
-3. Open labelImg by typing *labelImg*, load your images and begin classifying. For more information on how to use LabelImg click [***here***](https://github.com/tzutalin/labelImg)
+3. Open labelImg by typing *labelImg*, load your images and begin classifying be sure to use *surfer* as your classifying label. For more information on how to use LabelImg click [***here***](https://github.com/tzutalin/labelImg)
 
 Here is an example of an annotated image!
 
 ![alt text](https://github.com/Christopher-Holloway/Surfer_Count/blob/main/tutorial/pipeline_annotated_image.png "Annotated image")
 
-`
+### 3. Partion the data
+When training models it is best practice to split the data set into training (80%-90%) and testing (10%-20%) data. Here we use a 90% split because of our limited sample size. We can do this manually by moving both the image and adjoining *.xml* files into the */Surfer_Count/workspace/training_demo/images/train* and */Surfer_Count/workspace/training_demo/images/test* accrodingly. We could also use a *partion_dataset.py* located in */Surfer_Count/scripts/preprocessing* script to split and copy both the images and *.xml* files into the designated directories.
+
+      python partition_dataset.py -i /<PATH>/Surfer_Count/workspace/training_demo/images -r -x
+      
+### 4. Create Label Maps
+Before we were annotating and classifying our bounding boxes with surfers, we now need to create a label map file that is required by TensorFlow2.0, and is used in both the training and detection phases. Becuase we only have one classifying label (surfer) we can create a simple *label_map.pbtxt* file us vi editor. 
+1. Change into the annotations folder to write the file
+
+            cd ./../annotations
+      
+2. Open the vi editor and create the *label_map.pbtxt* file
+
+            vi label_map.pbtxt
+            
+
+
 
 
 
