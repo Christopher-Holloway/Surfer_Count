@@ -30,7 +30,7 @@ This tutorial is a full guide to implementinig TensorFlow2.0's Objeect Detection
 ### 3. Download and unzip the workspace
 1. Create a new directory ***Surfer_Count*** in your desired location
 * Download the Surfer_Count.zip in your local home directory (e.g. /Users/chrisholloway/)
-* Unzip the file and inspect the contents to make sure you have two directories *scripts* and *workspace
+* Unzip the file and inspect the contents to make sure you have two directories *scripts* and *workspace*
 
     
 ### 4. Downloading the TensorFlow2.0 Model Garden
@@ -71,13 +71,25 @@ We are going to begin by downloading the data and annotating the individual vide
       pip install labelImg
       
 ### 1. Download the data
-Next, we run into a road block for many users due to the fact that you need to be a Subscribed Premium Surfline member to access cam rewind downloads. Assuming everyone here is a memeber. There are two methods you can use to download the cam rewind videos
-1. Manually navigate the webpage to the download url 
-2. Build a webscraper that automatically finds the url timestamp from the thumbnail filename and then use pythons urllib3 and requests to download the video
+Next, we run into a road block for many users due to the fact that you need to be a Subscribed Premium Surfline member to access cam rewind downloads. Assuming everyone here is a memeber. There are methods you can use to download the cam rewind videos
 
-Note: I am currently working on the webscraper but also understand the legal issues so I will not be publishing that work here.
+A. Manually navigate the webpage to the download url 
+B. Build a webscraper that automatically finds the url timestamp from the thumbnail filename and then use pythons urllib3 and requests to download the video
 
-1. 
+For simplicity and because this project at scale would implement a pipeline approach within Surfline's existing cloud infrastructure, we choose option (A). Download the file to <PATH>/Surfer_Count/scripts/preprocessing/ Next run the *grab_frame.py* script which loads videos and captures a frame every 10 seconds. 
+      
+      
+### 2. Annotating the data
+1. Once you have collected all the images to be used to test your model (ideally more than 100 per class), place them inside the folder training_demo/images
+
+            mv *.jpg ./../../workspace/training_demo/images/.
+     
+2. Open a new terminal window and change into the directory we just placed the images in
+
+            cd Surfer_Count/workspace/training_demo/images/
+            
+3. Open labelImg by typing *labelImg* 
+ 
 
 `
 
