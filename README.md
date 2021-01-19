@@ -88,8 +88,11 @@ For simplicity and because this project at scale would implement a pipeline appr
 
             cd Surfer_Count/workspace/training_demo/images/
             
-3. Open labelImg by typing *labelImg* 
- 
+3. Open labelImg by typing *labelImg*, load your images and begin classifying. For more information on how to use LabelImg click [***here***](https://github.com/tzutalin/labelImg)
+
+Here is an example of an annotated image!
+
+![alt text](https://github.com/Christopher-Holloway/Surfer_Count/blob/main/tutorial/pipeline_annotated_image.png "Annotated image")
 
 `
 
