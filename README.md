@@ -100,7 +100,7 @@ When training models it is best practice to split the data set into training (80
       python partition_dataset.py -i /<PATH>/Surfer_Count/workspace/training_demo/images -r -x
       
 ### 4. Create Label Maps
-Before we were annotating and classifying our bounding boxes with surfers, we now need to create a label map file that is required by TensorFlow2.0, and is used in both the training and detection phases. Becuase we only have one classifying label (surfer) we can create a simple *label_map.pbtxt* file us vi editor. 
+Before, we were annotating and classifying our bounding boxes with surfers, we now, need to create a label map file that is required by TensorFlow2.0. This file is used in both the training and detection phase. Becuase we only have one classifying label (surfer) we create a short and simple *label_map.pbtxt* file us vi editor. 
 1. Change into the annotations folder to write the file
 
             cd ./../annotations
@@ -109,16 +109,27 @@ Before we were annotating and classifying our bounding boxes with surfers, we no
 
             vi label_map.pbtxt
             
-Press *i* to be able to insert text into the file. Copy and paste the following text below into the *label_map.pbtxt* file and save 
+Press *i* to be able to insert text into the file. Copy and paste the following text below into the *label_map.pbtxt* file and save by pressing *esc* to exit text editing powers and then *:wq* to write and exit the file
    
             item {
                  id: 1
                  name: 'surfer'
             }
-   
-Press *esc* to exit text editing powers and then *:wq* to write and exit the file
- 
+    
 ### 5. Create tfrecords from the *.xml* file 
+TensorFlows object detection API requires that we convert our xml files into tfrecords. This is generally done when you are working with large datasets, using a binary file format for storage of your data can have a significant impact on the performance of your import pipeline and as a consequence on the training time of your model. 
+
+In this tutorial we take advantage of a script provided by the TensorFlow Object Detection tutorial, called *generate_tfrecord.py* located in the */Surfer_Count/scripts/preprocessing/generate_tfrecord.py* to perform this task. To use this script we must install the pandas module with pip.
+
+      pip install pandas
+
+An example for just the training data (don't forget to do it for both the training and testing data) looks like:
+
+      python generate_tfrecord.py -x C:/Users/chrisholloway/SurfCounter/TensorFlow/workspace/training_demo/images/train C:/Users/chrisholloway/Surfer_Count/workspace/training_demo/annotations/label_map.pbtxt -o C:/Users/chrisholloway/Surfer_Count/workspace/training_demo/annotations/train.record
+
+Once the above is done, there should be a new file under the training_demo/annotations folder, named train.record, respectively.
+
+
 
 
 
