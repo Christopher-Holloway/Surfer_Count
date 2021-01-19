@@ -65,7 +65,7 @@ The Tensorflow Object Detection API uses Protobufs to configure model and traini
 
             python object_detection/builders/model_builder_tf2_test.py
     
-## Training Custom Object Detector
+## Preprocessing the Data to Train Custom Object Detector
 We are going to begin by downloading the data and annotating the individual video frames with bounding boxes around each surfer. The data annotations can be performed by a number of applications, here we choose to use labelImg, a python library easily installed with pip.
 
       pip install labelImg
@@ -125,9 +125,51 @@ In this tutorial we take advantage of a script provided by the TensorFlow Object
 
 An example for just the training data (don't forget to do it for both the training and testing data) looks like:
 
-      python generate_tfrecord.py -x C:/Users/chrisholloway/SurfCounter/TensorFlow/workspace/training_demo/images/train C:/Users/chrisholloway/Surfer_Count/workspace/training_demo/annotations/label_map.pbtxt -o C:/Users/chrisholloway/Surfer_Count/workspace/training_demo/annotations/train.record
+      python generate_tfrecord.py -x C:/Users/chrisholloway/Surfer_Count/workspace/training_demo/images/train C:/Users/chrisholloway/Surfer_Count/workspace/training_demo/annotations/label_map.pbtxt -o C:/Users/chrisholloway/Surfer_Count/workspace/training_demo/annotations/train.record
 
-Once the above is done, there should be a new file under the training_demo/annotations folder, named train.record, respectively.
+Once the above is done, there should be a new file under the *training_demo/annotations* folder, named train.record.
+
+## Training Custom Object Detector
+Instead of training a completely new model, we will reuse one of the pre-trained models provided by TensorFlow.
+
+### 1. Download a pre-trained model from the model zoo
+Click on the name of the desired model in the table found in [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md). Clicking on the name of your model should initiate a download for a *.tar.gz* file. Here we will choose the SSD_ResNet50_V1_FPN_640x640 model, but you can choose any model from the zoo.
+
+Now extract its contents into the *Surfer_Count/workspace/training_demo/pre-trained-models/* folder. Use the following command if your file was downloaded to your Users Download folder:
+
+      tar - xvf ~/Downloads/ssd_resnet50_v1_fpn_640x640_coco17_tpu-8.tar.gz ~/Surfer_Count/workspace/training_demo/pre-trained-models/.
+      
+You should now have two folders names *checkpoint* and *saved_model*, as well as a *pipeline.config* file.
+
+### 2. Configuring the Training Pipeline
+Now that we have the model downloaded and extracted into its correct location in our workspace we will
+1. Create a new folder inside the */Surfer_Count/workspace/training_demo/models/my_ssd_resnet50_v1_fpn* 
+2. Copy the *pipeline.config* file inside the newly created directory 
+3. Find lines 3,131,161,167,168,172,174,178,179,182,186 edit to your setttings based on the notes provided in the file and save
+
+### 3. Training the Model
+1. Copy the *model_main_tf2.py* file from the */Surfer_Count/models/object_detection/* folder and place it directily in the */Surfer_Count/workspace/training_demo/* folder
+2. Change *cd* into the *training_demo* folder  
+3. Run the following command
+
+            python model_main_tf2.py --model_dir=models/my_ssd_resnet50_v1_fpn --pipeline_config_path=models/my_ssd_resnet50_v1_fpn/pipeline.config
+4. Now the model should initialize and complete training for the designated number of epochs declared in the pipeline.config file
+
+Training times can vary depending on if you are using a GPU or CPU as well as the batch size of the training data. In my case I ran this model locally for 20 epcohs with no optimization and it took roughly two days. (Not ideal!) But, for proof of concept with limited resources I was able to succesfully train this model and perform detection on validation images.
+
+### 4. Exporting the Model
+Once the model has completed training we will want to export an inference graph that we will later use to perform the object detection on validation images
+
+1. Copy the *Surfer_Count/models/research/object_detection/exporter_main_v2.py* file and paste it straight into your *training_demo* folder
+2. Run the following command to export the model into a newly created folder located at */Surfer_Count/workspace/training_demo/exported-models/my_model*
+
+            python exporter_main_v2.py --input_type=image_tensor --pipeline_config_path=--pipeline_config_path=models/my_ssd_resnet50_v1_fpn/pipeline.config --trained_checkpoint_dir=/models/my_ssd_resnet50_v1_fpn/ --output_directory=exported-models/my_model
+
+This model can then be used to perform inference
+
+
+
+
 
 
 
