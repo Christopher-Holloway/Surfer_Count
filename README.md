@@ -163,7 +163,7 @@ Once the model has completed training we will want to export an inference graph 
 1. Copy the *Surfer_Count/models/research/object_detection/exporter_main_v2.py* file and paste it straight into your *training_demo* folder
 2. Run the following command to export the model into a newly created folder located at */Surfer_Count/workspace/training_demo/exported-models/my_model*
 
-            python exporter_main_v2.py --input_type=image_tensor --pipeline_config_path=--pipeline_config_path=models/my_ssd_resnet50_v1_fpn/pipeline.config --trained_checkpoint_dir=/models/my_ssd_resnet50_v1_fpn/ --output_directory=exported-models/my_model
+            python exporter_main_v2.py --input_type=image_tensor --pipeline_config_path=models/my_ssd_resnet50_v1_fpn/pipeline.config --trained_checkpoint_dir=/models/my_ssd_resnet50_v1_fpn/ --output_directory=exported-models/my_model
 
 This model can then be used to perform inference
 
