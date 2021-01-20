@@ -167,8 +167,7 @@ Once the model has completed training we will want to export an inference graph 
 
 This model can then be used to perform inference
 
-
-
+![alt text](https://github.com/Christopher-Holloway/Surfer_Count/blob/main/tutorial/pipeline_overview_linkedin.png "Detected image")
 
 
 
