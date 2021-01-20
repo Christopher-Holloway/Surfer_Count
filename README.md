@@ -13,12 +13,12 @@ This tutorial is a full guide to implementinig TensorFlow2.0's Objeect Detection
 * Open a *Terminal* window
 * Type the following command:
 
-      conda create -n tensorflow pip python=3.8
+      conda create -n Surfer_Count pip python=3.8
     
 * The above will create a new virtual environment with name ***Surfer_Count***
 * To activate the ***Surfer_Count*** virtual environment type the following command in the *Terminal* window: 
 
-      conda activate tensorflow
+      conda activate Surfer_Count
     
 * Throughout the rest of the tutorial, execution of any commands in a *Terminal* window should be done after the Anaconda virtual environment has been activated
 
