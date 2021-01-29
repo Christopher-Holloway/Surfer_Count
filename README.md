@@ -97,7 +97,7 @@ Here is an example of an annotated image!
 ### 3. Partion the data
 When training models it is best practice to split the data set into training (80%-90%) and testing (10%-20%) data. Here we use a 90% split because of our limited sample size. We can do this manually by moving both the image and adjoining *.xml* files into the */Surfer_Count/workspace/training_demo/images/train* and */Surfer_Count/workspace/training_demo/images/test* accrodingly. We could also use a *partion_dataset.py* located in */Surfer_Count/scripts/preprocessing* script to split and copy both the images and *.xml* files into the designated directories.
 
-      python partition_dataset.py -i /<PATH>/Surfer_Count/workspace/training_demo/images -r -x
+      python partition_dataset.py -i /<PATH>/Surfer_Count/workspace/training_demo/images -r 0.1 -x
       
 ### 4. Create Label Maps
 Before, we were annotating and classifying our bounding boxes with surfers, we now, need to create a label map file that is required by TensorFlow2.0. This file is used in both the training and detection phase. Becuase we only have one classifying label (surfer) we create a short and simple *label_map.pbtxt* file us vi editor. 
